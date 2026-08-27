@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+
+<html lang="pt-PT">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+
+    <!-- ==========================================
+         APP INFORMATION
+    =========================================== -->
+
+    <title>Calculadora Pediátrica</title>
+
+    <meta
+        name="description"
+        content="Calculadora pediátrica de apoio ao cálculo de amoxicilina e ácido clavulânico."
+    >
+
+
+    <!-- ==========================================
+         PWA CONFIGURATION
+    =========================================== -->
+
+    <meta
+        name="theme-color"
+        content="#1769e0"
+    >
+
+    <!-- PWA Manifest -->
+    <link
+        rel="manifest"
+        href="./manifest.json"
+    >
+
+    <!-- Application / browser icon -->
+    <link
+        rel="icon"
+        type="image/png"
+        sizes="192x192"
+        href="./icons/icon-192.png"
+    >
+
+
+    <!-- ==========================================
+         CSS
+    =========================================== -->
+
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="./style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<main class="app">
+
+
+    <!-- ==========================================
+         HEADER
+    =========================================== -->
+
+    <header class="header">
+
+        <div class="app-icon">
+            Rx
+        </div>
+
+        <h1>
+            Calculadora Pediátrica
+        </h1>
+
+        <p>
+            Amoxicilina + Ácido Clavulânico
+        </p>
+
+    </header>
+
+
+
+    <!-- ==========================================
+         CALCULATOR
+    =========================================== -->
+
+    <section class="card">
+
+
+        <!-- INDICATION -->
+
+        <div class="field">
+
+            <label for="indication">
+                Indicação clínica
+            </label>
+
+            <select id="indication">
+
+                <option value="">
+                    Selecione...
+                </option>
+
+                <option value="otitis">
+                    Otite média aguda
+                </option>
+
+                <option value="tonsillitis">
+                    Faringoamigdalite estreptocócica
+                </option>
+
+                <option value="carrier">
+                    Portador crónico de GAS
+                </option>
+
+                <option value="bronchitis">
+                    Bronquite aguda não complicada
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- FORMULATION -->
+
+        <div class="field">
+
+            <label for="formulation">
+                Apresentação
+            </label>
+
+            <select id="formulation">
+
+                <option value="">
+                    Selecione...
+                </option>
+
+                <option value="400">
+                    400 mg + 57 mg / 5 mL (7:1)
+                </option>
+
+                <option value="600">
+                    600 mg + 42,9 mg / 5 mL (14:1)
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- AGE -->
+
+        <div class="field">
+
+            <label>
+                Idade da criança
+            </label>
+
+            <div class="age-row">
+
+
+                <div>
+
+                    <input
+                        id="years"
+                        type="number"
+                        inputmode="numeric"
+                        min="0"
+                        step="1"
+                        placeholder="0"
+                    >
+
+                    <span>
+                        anos
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <input
+                        id="months"
+                        type="number"
+                        inputmode="numeric"
+                        min="0"
+                        max="11"
+                        step="1"
+                        placeholder="0"
+                    >
+
+                    <span>
+                        meses
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- WEIGHT -->
+
+        <div class="field">
+
+            <label for="weight">
+                Peso da criança
+            </label>
+
+            <div class="weight-row">
+
+                <input
+                    id="weight"
+                    type="number"
+                    inputmode="decimal"
+                    min="0"
+                    step="0.1"
+                    placeholder="Ex.: 18,5"
+                >
+
+                <span>
+                    kg
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CALCULATE BUTTON -->
+
+        <button
+            id="calculateButton"
+            type="button"
+        >
+            CALCULAR
+        </button>
+
+
+    </section>
+
+
+
+    <!-- ==========================================
+         ERROR / INFORMATION MESSAGE
+    =========================================== -->
+
+    <section
+        id="messageBox"
+        class="message hidden"
+    >
+
+        <strong id="messageTitle">
+        </strong>
+
+        <p id="messageText">
+        </p>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         RESULTS
+    =========================================== -->
+
+    <section
+        id="result"
+        class="result-card hidden"
+    >
+
+
+        <p class="result-heading">
+            QUANTIDADE POR TOMA
+        </p>
+
+
+        <div class="dose-result">
+
+            <span id="doseMl">
+                --
+            </span>
+
+            <span class="dose-unit">
+                mL
+            </span>
+
+        </div>
+
+
+
+        <div class="details">
+
+
+            <div>
+
+                <span>
+                    Dose de amoxicilina
+                </span>
+
+                <strong id="mgPerDose">
+                    --
+                </strong>
+
+            </div>
+
+
+
+            <div>
+
+                <span>
+                    Frequência
+                </span>
+
+                <strong id="frequency">
+                    --
+                </strong>
+
+            </div>
+
+
+
+            <div>
+
+                <span>
+                    Dose diária
+                </span>
+
+                <strong id="dailyDose">
+                    --
+                </strong>
+
+            </div>
+
+
+
+            <div>
+
+                <span>
+                    Duração
+                </span>
+
+                <strong id="duration">
+                    --
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+
+        <p
+            id="formulaInfo"
+            class="formula-info"
+        >
+        </p>
+
+
+    </section>
+
+
+
+    <!-- ==========================================
+         SOURCE / PROFESSIONAL WARNING
+    =========================================== -->
+
+    <section class="source-card">
+
+        <strong>
+            Fonte clínica
+        </strong>
+
+        <p>
+            INFARMED / CNFT — Orientação n.º 18,
+            Tratamento antibiótico de infeções
+            respiratórias em Pediatria, versão 1.1.
+        </p>
+
+
+        <p class="disclaimer">
+            Ferramenta de apoio ao cálculo para
+            profissionais de saúde. Não determina
+            indicação terapêutica e não substitui
+            avaliação clínica, RCM ou protocolo local.
+        </p>
+
+    </section>
+
+
+</main>
+
+
+
+<!-- ==============================================
+     JAVASCRIPT
+================================================ -->
+
+<script src="./App.js"></script>
+
+
+</body>
+
+</html>
